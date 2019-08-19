@@ -16,11 +16,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         select: false,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-});
+    /* Use o 'timestamps', esse flag faz com que o mongoose gerencie datas de criação e modificação */
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now,
+    // },
+}, { timestamps: true }); // <- use isto
 
 const User = mongoose.model('User', UserSchema);
 
