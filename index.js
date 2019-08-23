@@ -21,6 +21,8 @@ mongoose.connect(DB.DB_URL, DB.DB_SETTINGS,
 
 require('./src/controllers/authController')(app); // app é passado pois é usado em toda a aplicação
 
+require('./src/controllers/clientController')(app); // Para registrar informações do cliente
+
 app.listen(3000, 
     function() { //Essa função roda sempre que servidor subir, isto também é um 'callback'
         console.log(`Aplicação rodando.`);

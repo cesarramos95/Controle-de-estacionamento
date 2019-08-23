@@ -1,3 +1,4 @@
+// Controle de autenticação do usuário do sistema 
 const express = require('express');
 
 const User = require('../models/user');
