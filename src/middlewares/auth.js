@@ -1,3 +1,7 @@
+/* Controle de verificação do token enquanto o
+   funcionário do estacionamento está logado no 
+   sistema e  fazendo as requisições
+*/
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json');
 
