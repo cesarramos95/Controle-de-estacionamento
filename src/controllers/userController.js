@@ -1,6 +1,6 @@
 // Controle de autenticação do login do funcionário do estacionamento
 const express = require('express');
-const bcrypt = require('bcryptjs');    // Biblioteca usada para criptografar a senha através de hash
+const bcrypt = require('bcryptjs');   
 const jwt = require('jsonwebtoken');  
 
 /* Controller do projeto que garante que o usuário
@@ -13,7 +13,7 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-router.use(authMiddleware); // adicionadas agora
+//router.use(authMiddleware); // adicionadas agora
 
 function generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret, {
@@ -63,7 +63,7 @@ router.patch('/', async (req, res) => {
         const user = await User.update( {email: req.body.email}, {
             $set: {
                 "name": req.body.name,
-                "email": req.body.email,
+                //"email": req.body.email,
                 "password": req.body.password,
             }
         });
@@ -75,7 +75,7 @@ router.patch('/', async (req, res) => {
     }
 });
 
-router.delete('/:_id', async (req, res) => { // Rota para deletar registro de funcionário
+router.delete('/:id', async (req, res) => { // Rota para deletar registro de funcionário
     try {
         await User.findOneAndDelete( req.params.id );
         
@@ -90,9 +90,9 @@ router.delete('/:_id', async (req, res) => { // Rota para deletar registro de fu
     Somente é necessário para o funcionário do estacionamento
 */
 router.post('/authenticate', async (req, res) => {
-    const { name, password} = req.body; // Será email e senha mesmo ou é melhor username e senha?
+    const { email, password} = req.body; // O sistema solicita email e senha para o login
     
-    const user = await User.findOne({ name }).select('+password'); // Verifica se o usuário existe no banco de dados
+    const user = await User.findOne({ email }).select('+password'); // Verifica se o usuário existe no banco de dados
 
     if(!user)                                                                               // <- faz a verificação do login do funcionário                      
         return res.status(400).json({ error: 'Usuário ou senha inválidos! :( Tente novamente.' });      // Se o e-mail ou senha fornecidos estiverem errados            
@@ -101,7 +101,6 @@ router.post('/authenticate', async (req, res) => {
         return res.status(400).json({ error: 'Usuário ou senha inválidos! :( Tente novamente.' });
 
     res.json({ 
-        //user, 
         token: generateToken({ id: user.id }), // Se não ocorrer nenhum erro, retorna com o usuário
     });
 });

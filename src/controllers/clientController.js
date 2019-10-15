@@ -12,7 +12,8 @@ router.post('/', async (req, res) => { // Rota para cadastro
             return res.status(400).json({ error: 'Placa já cadastrada anteriormente!' });
 
         const client = await Client.create(req.body);
-        return res.json({ client }); //Prefira usar res.json() em vez do res.send(). O res.json() já configura toda response como Json
+
+        return res.json({ client }); //O res.json() já configura toda response como Json
 
     } catch (err) {
         return res.status(400).json({ msg: 'O registro falhou!', error: err }); //Devolva o erro na response, isso facilita descobrir a causa
@@ -49,7 +50,7 @@ router.patch('/', async (req, res) => { // Rota para atualizar
                 "tel" : req.body.tel,
                 "carModel" : req.body.carModel,
                 //"licensePlate" : req.params.licensePlate
-                     }
+                }
         });
 
         return res.json({ client }); 

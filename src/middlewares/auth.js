@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     jwt.verify(token, authConfig.secret, (err, decoded) => { // Callback
         if(err) return res.status(401).json({ error: 'Token inválido' })
 
-        req.userId = decoded.id; // decoded.id é o id passado como parâmetro em authController
+        req.userId = decoded.id; // decoded.id é o id passado como parâmetro em userController
         return next();
     });    
 };

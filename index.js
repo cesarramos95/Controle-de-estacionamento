@@ -1,4 +1,4 @@
-//Seu arquivo de ponto de entrada da aplicação deve ficar na raiz do projeto
+//O arquivo de ponto de entrada da aplicação deve ficar na raiz do projeto
 const express = require('express');
 const mongoose = require('mongoose'); // <- temos que importar o mongoose aqui para que possamos fazer a conexão com o BD
 // const bodyParser = require('body-parser'); // <- não vamos precisar desse módulo (removi do package.json também)
@@ -10,7 +10,7 @@ const app = express(); // Criando a aplicação
 app.use(express.json());
 
 mongoose.connect(DB.DB_URL, DB.DB_SETTINGS,
-    function(error) { //Essa função roda sempre que sua aplicação se conectar no Mongo, isto é um tipo de função chamada 'callback'
+    function(error) { //Essa função roda sempre que a aplicação se conecta no Mongo, isto é um tipo de função chamada 'callback'
         if (!error) {
             console.log(`Conectado no MongoDB`);
         } else {
